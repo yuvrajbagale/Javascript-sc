@@ -108,7 +108,7 @@ for (let num = 5; num < 10; num++) {}
 // // fnc inside method (es6) - object
 // let obj3 = {
 //   sayName: function(){
-//     const child = ()=>{ 
+//     const child = ()=>{
 //       console.log(this);
 //     }
 //     child(); // object
@@ -127,16 +127,16 @@ for (let num = 5; num < 10; num++) {}
 // .addEventListener("click", function(){
 //   console.log(this);
 // })
-**********************************************************************************
+// **********************************************************************************
 //call apply bind
-// ye teen tarike hai function ko call karne ke kisi object ko this maan kr 
+// ye teen tarike hai function ko call karne ke kisi object ko this maan kr
 
 // let obj = {name:"yuvraj"}
 
 // function abcd(){
 //   console.log(this);
 // }
-// abcd.call(obj); // 
+// abcd.call(obj); //
 
 // // apply
 
@@ -154,8 +154,105 @@ for (let num = 5; num < 10; num++) {}
 // let baadmechalanekeliyefunc = abcd.bind(obj);
 // baadmechalanekeliyefunc();
 
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Prototypal inheritance
+// hum objects create karte hai and k isi ek parent constructor function ke prototype mein kuchh add kr dete hai and jab bhi add hota hai to wo parent se banne waale sabhi children instances ko wo properties jo parent ko prototype mein di gayi thi wo miltl hai saugaat mein.
 
+// function makeHuman(name, age) {
+//   this.name = name;
+//   this.age = age;
+//   this.printMyName = function () {
+//     console.log(this.name);
+//   }
+// }
 
+// let human1 = new makeHuman("yuvraj", 25);
+// let human2 = new makeHuman("yuvi", 26);
+
+// ek function jo ki this ka upyog kr raha ho and new ke dwaara naye naye objects bana kar deta ho aise function ko constructor function kahate hai
+
+// function abcd(){
+//   this.username = "yuvraj";
+// }
+// let ans = new abcd()
+
+// aisa koi bhi function jismein app this ka upyog kar rhe ho aur us function ko call karte waqt aap new ka upyogog karein, to new ka matlab waha par ek blank object hojaata hai
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// Closures
+//  Ek function jo return kare doosra function, aur use kare parent function ka koi variable
+
+// function abcd() {
+//   var a = 12;
+//   return function(){
+//     console.log(a)
+//   }
+// }
+
+// event Delegation = jab app event listener se kai saare different elements ke events ko handle kar sake
+// Event listener ko parent par lagao and unko id, class ya fir tag ke basis par differentiate karke different task karvavo
+
+// var parent = document.querySelector("#parent");
+
+// parent.addEventListener("click", function (details) {
+//   if (details.target.id === "play") {
+//     console.log("play songs");
+//   } else if (details.target.id === "pause") {
+//     console.log("pause songs");
+//   }
+// });
+
+// hofs- higher order functions
+// aisa koi func jo ki ek fnc ko parameter mein accept karle and/or ek function ko return karde
+
+// Error handling like pro - try catch
+// function divide(a, b) {
+//   try {
+//     if (b === 0) {
+//       throw Error("Kuch to gadbad hai");
+//     }
+//     console.log(a / b);
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
+
+// divide(12, 0);
+
+//Async js
+
+// aisa koi bhi code jismain khuch time lagta hai, js mein use by default in most cases async code maan kar side stack mein daal diya jaata hai
+// settimeout - settimeout ka code kuchh der baad chalta hai
+
+// console.log("hey1");
+// console.log("hey2");
+// setTimeout(() => {
+//   console.log("hey3");
+// });
+// console.log("hey4");
+
+// setinterval - settimeout ka code kuchh der baad chalta hai set interval ka code kuchh der baad chalta hai baar baar ek particular interval time mein
+
+let count = 0;
+const humarainterval = setInterval(function () {
+  ++count;
+  console.log(count);
+  if (count === 5) clearInterval(humarainterval);
+}, 2000);
+
+// Fetch API — ye kisi aur url par jaa kar kuchh data laayega ya data humaare paas se us url par lekar jaayega
+// kyuki ye internet par jaayega aur fir data ko lekar aayega to ismein time lagta hai to by default hi j s mein fetch ko async banaaya gaya hai kyuki fetch ka kaam hai data laana wo bhi kisi url se ab aisa ho skta hai us url ki website slow ho, to data laane mein time lage aur agar fetch synchronous hota to uske baad ka code tab tak nahi chalta jab tak uska data nahi aajata, which is a big problem, poora code aatak sakta tha.
+
+// jaao panchhi letter lekar aao
+
+fetch(`https://randomuser.me/api/`);
+
+// Axios (or other HTTP libraries) - ye bhi wahi karega ye thoda jaada developer friendly hai
+// promise - ye janaab ke andar jo code likhoge wo apan khud side stack mein chale jaayege us code ko lekar aur resolve kiya jaayega tab ye chalebe jo fetch karta hai bas kaam ka rega aur jab andar se coe
+
+// promises kya hai ?
+// kuchh code socho man mein, jo ki async code ho, mat lab ki ye side stack mein jaayega aur baad mei chalega main stack ke, ab ye socho ki aapne is code ko likha hai to iska answer kabhi aayega aur aisa bhi ho sakta hai kis answer naa aaye, promises kya hai aisa samjho ki aap promise ke andar koi bhi async code likhdo jo man mein aaye aur promise aapko ek parchi dedeta hai and wo parchi par by default likha hota hai waiting,
+
+// ye sabhi use hi tab kiye jaate hai jab aapko kuchh aisa karna ho jismain time lagela
